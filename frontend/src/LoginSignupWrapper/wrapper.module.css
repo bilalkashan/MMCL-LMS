@@ -1,0 +1,39 @@
+.wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1000px;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  overflow: hidden;
+  transition: all 0.6s ease-in-out;
+}
+
+.panelLeft, .panelRight {
+  width: 100%;
+  transition: all 0.6s ease-in-out;
+  flex-shrink: 0;
+  height: 100%;
+}
+
+/* Initially show the login panel */
+.wrapper .panelLeft {
+  transform: translateX(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+.wrapper .panelRight {
+  transform: translateX(0%);
+}
+
+/* When in Sign Up mode */
+.wrapper.rightPanelActive .panelLeft {
+  transform: translateX(0%);
+  opacity: 1;
+  pointer-events: auto;
+}
+.wrapper.rightPanelActive .panelRight {
+  transform: translateX(100%);
+  opacity: 0;
+  pointer-events: none;
+}

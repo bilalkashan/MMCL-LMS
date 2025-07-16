@@ -1,0 +1,77 @@
+.container {
+  padding: 60px 20px 100px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+}
+
+.heading {
+  font-size: 32px;
+  font-weight: bold;
+  text-align: center;
+  color: #003366;
+  margin-bottom: 40px;
+}
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
+}
+
+.card {
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 20px;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.card h3 {
+  margin-top: 0;
+  color: #0c54a3;
+}
+
+.card p {
+  margin: 8px 0;
+  font-size: 15px;
+}
+
+.card a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.approve {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.reject {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.approve:hover {
+  background-color: #218838;
+}
+
+.reject:hover {
+  background-color: #c82333;
+}

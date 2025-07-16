@@ -1,0 +1,111 @@
+.container {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.announcementsContainer{
+  display: flex;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+.heading {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #003366;
+}
+
+.announcementList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.announcementCard {
+  background-color: #f4f4f4;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.announcementCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.announcementContent {
+  flex-grow: 1;
+  padding-right: 20px;
+}
+
+.title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #003366;
+  margin-bottom: 10px;
+}
+
+.description {
+  font-size: 1rem;
+  color: #333;
+}
+
+.buttonContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.updateButton,
+.deleteButton {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.updateButton {
+  background-color: #4caf50;
+  color: white;
+}
+
+.updateButton:hover {
+  background-color: #388e3c;
+}
+
+.deleteButton {
+  background-color: #ff4d4d;
+  color: white;
+}
+
+.deleteButton:hover {
+  background-color: #e60000;
+}
+
+.addButtonContainer {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 20px;
+}
+
+.addButton {
+  background-color: #003366;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.addButton:hover {
+  border-radius: 12px;
+
+}

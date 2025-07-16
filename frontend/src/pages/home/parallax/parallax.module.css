@@ -1,0 +1,51 @@
+.parallax {
+  height: 55vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-size: cover;
+  background-position: center;
+  margin-bottom: 80px;
+}
+
+.sliderContent {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  /* padding: 0 20px; */
+}
+
+.textContent {
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 30px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.textContent h1 {
+  font-size: 2.5rem;
+  color: #003366;
+  margin-bottom: 10px;
+}
+
+.textContent p {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .textContent h1 {
+    font-size: 1.8rem;
+  }
+
+  .textContent p {
+    font-size: 1rem;
+  }
+
+  .textContent {
+    padding: 20px;
+  }
+}

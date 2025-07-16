@@ -1,0 +1,123 @@
+.dashboardContainer {
+    text-align: center;
+    padding-top: 70px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 100px;
+  }
+  
+  h1 {
+    font-size: 32px;
+    color: #003366;
+    margin-bottom: 40px;
+    padding-top: 20px;
+  }
+  
+  .departmentCards {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .dashboardCard {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 35px;
+    width: 350px;
+    transition: transform 0.3s ease;
+    cursor: pointer;
+    margin: 20px;
+  }
+  
+  .dashboardCard:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+  }
+  
+  .icon {
+    font-size: 50px;
+    margin-bottom: 15px;
+    color: #5a2bbf;
+  }
+  
+  h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #003366;
+  }
+  
+  p {
+    font-size: 16px;
+    color: #555;
+  }
+  
+  .searchBar {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 16px;
+  }
+  
+  .yearList {
+    display: grid;
+    justify-content: space-around;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+  .noResults {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px; 
+    text-align: center;
+    padding: 3px;
+  }
+  
+  .noResultsImage {
+    max-width: 350px; 
+    height: auto;
+  }
+  
+  .noResultsText {
+    font-size: 18px;
+    color: #555;
+    margin-top: 10px; 
+  }
+  
+
+  @media (max-width: 768px) {
+    .departmentCards {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .dashboardCard {
+      margin-bottom: 20px;
+      width: 80%;
+    }
+  
+    .yearList {
+      grid-template-columns: repeat(2, 1fr);
+      justify-content: center;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .yearList {
+      grid-template-columns: 1fr;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .searchBar {
+      max-width: 250px;
+    }
+  }
+  

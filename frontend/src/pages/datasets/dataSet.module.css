@@ -1,0 +1,227 @@
+
+/* Card styles */
+.card {
+  width: 400px;
+  height: 320px;
+  padding: 15px 20px 60px 20px;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  transition: 0.3s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.card:hover {
+  /* transform: translateY(-6px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15); */
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+  cursor: pointer; 
+}
+
+.cardImg {
+  width: 10vw;
+  margin-bottom: 15px;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+}
+
+.cardName {
+  color: #003366;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.cardDesc {
+  color: #555;
+  font-size: 14px;
+  line-height: 1.5;
+  text-align: justify;
+  padding: 0 5px;
+}
+
+.btn1 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  color: #fff;
+  font-size: 14px;
+  background-color: #003366;
+  padding: 12px 0;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  text-align: center;
+  transition: 0.3s ease;
+}
+
+.btn1:hover {
+  letter-spacing: 1px;
+}
+
+/* Heading */
+.dataHeading {
+  font-size: 30px;
+  font-weight: 700;
+  margin: 40px 0 20px 0;
+  text-align: center;
+  color: #003366;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  width: 100%;
+}
+
+/* Sidebar: Fixed Left */
+.sidebarContainer {
+  width: 250px;
+  background-color: #003366;
+  color: white;
+  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 20px;
+  z-index: 1000;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.adminDashboardContainer {
+  display: flex;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.mainContent {
+  flex: 1; 
+  margin-left: 250px; 
+  display: flex;
+  flex-direction: column;
+  background-color: #f4f6f9;
+}
+
+.cardsWrapper {
+  background-color: #f7f9fc;
+  /* min-height: 100vh; */
+  display: flex;
+  align-items: flex-start;
+  padding: 20px;
+  margin-top: 80px;
+}
+
+.statsCardsWrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  padding: 18px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.dashboardHeader h1{
+  margin-top: 10px;
+}
+.scrollableCards {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.searchBarWrapper {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: white;
+  transition: box-shadow 0.3s ease;
+}
+
+.searchBarWrapper:focus-within {
+  box-shadow: 0 0 5px rgba(90, 103, 216, 0.3);
+  border-color: #5a67d8;
+}
+.dashboardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 40px;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  top: 0;
+  /* height: 90px; */
+  z-index: 12;
+}
+.searchInput {
+  flex: 1;
+  padding: 10px 20px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  background: transparent;
+  width: 20rem;
+}
+
+.searchInput:focus {
+  border-color: #5a67d8;
+  box-shadow: 0 0 5px rgba(90, 103, 216, 0.3);
+}
+
+.searchBarButton {
+  padding: 12px 20px;
+  background-color: #003366;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.searchBarButton:hover {
+  background-color: #002244;
+}
+
+.dashboardTitle {
+  font-size: 28px;
+  font-weight: 600;
+  color: #003366;
+}
+
+@media (max-width: 768px) {
+  .dashboardHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 20px;
+  }
+
+  .searchBarWrapper {
+    width: 100%;
+  }
+
+  .dashboardTitle {
+    font-size: 22px;
+  }
+}
+
+@media (max-width: 768px) {
+  .adminDashboardContainer {
+    flex-direction: column;
+  }
+
+  .mainContent {
+    margin-left: 0; 
+    padding: 0;
+  }
+
+  .dashboardHeader {
+    padding: 10px;
+  }
+}

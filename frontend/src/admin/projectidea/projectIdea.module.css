@@ -1,0 +1,183 @@
+.container {
+    padding: 20px;
+    padding-left: 15%;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 2rem;
+}
+
+.table-wrapper {
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch; 
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+  }
+
+.tableHeader {
+    background-color: #003366;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    color: #fff;
+}
+
+.table th,
+.table td {
+      padding: 10px 8px 10px 8px;
+      border: 1px solid #ddd;
+      text-align: center;
+}
+.tableRow {
+    border-bottom: 1px solid #003366;
+}
+
+.tableCell {
+    text-align: center;
+    font-size: 1rem;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.tableCell:nth-child(1) {
+    width: 2%;
+}
+
+.tableCell:nth-child(2) {
+    width: 20%; 
+}
+
+.tableCell:nth-child(3) {
+    width: 30%; 
+}
+
+.tableCell:nth-child(4) {
+    width: 23%; 
+}
+
+.tableCell:nth-child(5) {
+    width: 15%; 
+}
+
+.tableCell:nth-child(6) {
+    width: 10%; 
+}
+
+.slotContainer {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.slotBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: lightgray;
+    color: #fff;
+    font-size: 0.9rem;
+    text-align: center;
+    width: 100px;
+    height: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.slotBox:hover {
+    transform: scale(1.05);
+}
+
+.slotSelect {
+    margin-top: 5px;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    width: 100%;
+}
+
+.fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 20%px;
+  height: 50px;
+  border-radius: 30px;
+  color: white;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.fab:hover {
+  background-color: #e6e6e6 !important;
+  color: #003366;
+}
+
+.deleteButton {
+    background-color: transparent;
+    border: none;
+    color: #ff4d4f;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.deleteButton:hover {
+    color: #003366; 
+}
+
+.deleteButton:focus {
+    outline: none;
+}
+
+
+.panelSelector {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .panelButton {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #003366;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .panelButton:hover {
+    background-color: #005599;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .active {
+    background-color: #005599;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
