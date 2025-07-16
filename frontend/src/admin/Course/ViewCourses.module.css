@@ -1,0 +1,74 @@
+.container {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h2 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  color: #1e1e1e;
+}
+
+.courseCard {
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-left: 5px solid #0077ff;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease;
+}
+
+.courseCard:hover {
+  transform: translateY(-3px);
+}
+
+.courseCard h3 {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.courseCard p {
+  margin: 0.3rem 0;
+  color: #555;
+}
+
+.enrolledList {
+  margin-top: 1rem;
+  border-top: 1px solid #eee;
+  padding-top: 1rem;
+}
+
+.employee {
+  background-color: #f9f9f9;
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.8rem;
+  border-radius: 8px;
+  border-left: 4px solid #00b894;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+}
+
+.employee p {
+  margin: 0.2rem 0;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .courseCard h3 {
+    font-size: 1.3rem;
+  }
+
+  .employee {
+    font-size: 0.9rem;
+  }
+}

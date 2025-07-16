@@ -1,10 +1,15 @@
-import { Navigate, Route, Routes } from "react-router-dom";
+import React from "react";
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import RefreshHandler from "./RefreshHandler";
+import ProtectedRoute from "./ProtectedRoute";
+
+// Import all your pages
 import Signup from "./pages/signup/signup";
 import Login from "./pages/login/login";
 import ForgetPassword from "./pages/forgetpassowrd/forgetpassword";
-import RefreshHandler from "./RefreshHandler";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import AdminDashboard from "./admin/admindashboard/adminDashboard";
 import About from "./pages/about/about";
 import AdviserSlots from "./admin/adviser/adviserSlots";
@@ -14,7 +19,6 @@ import AdvisorDetails from "./pages/advisorDetails/advisorDetails";
 import RequestUsers from "./admin/requestUsers/requestUsers";
 import Announcements from "./admin/Announcements/Announcements";
 import VerifiedOtp from "./verifiedOtp/verifiedOtp";
-import ProtectedRoute from "./ProtectedRoute";
 import Result from "./teacher/result";
 import FYPResult from "./pages/result/fypresult";
 import AddTeacher from "./admin/addTeacher/AddTeacher";
@@ -30,225 +34,79 @@ import Home from "./pages/home/home";
 import LoginSignupWrapper from "./LoginSignupWrapper/LoginSignupWrapper";
 import EmployeeProgressGraph from "./Component/EmployeeProgressGraph/EmployeeProgressGraph";
 import UserDashboard from "./pages/userdashboard/userdashboard";
-import CourseList from "./pages/CourseList/CourseList";
-import QuizPage from "./pages/QuizPage/QuizPage";
-import CertificatePage from "./pages/CertificatePage/CertificatePage";
-import AdminCourses from "./admin/AdminCourses/AdminCourses";
-import CourseDetail from "./pages/CourseList/CourseDetail"; 
+import AddCourse from "./admin/Course/AddCourse";
+import ViewCourses from "./admin/Course/ViewCourses";
+import AvailableCourses from "./pages/EmployeeCourse/AvailableCourses";
+import CourseDetail from "./pages/EmployeeCourse/CourseDetail";
 
+// Wrapper to easily add protection and allowedRole to routes
+const Protected = ({ element, allowedRole }) => (
+  <ProtectedRoute element={element} allowedRole={allowedRole} />
+);
+
+// Define all routes here
+const router = createBrowserRouter(
+  [
+    // Public routes
+    { path: "/loginwrapper", element: <LoginSignupWrapper /> },
+    { path: "/", element: <Navigate to="/home" replace /> },
+    { path: "/home", element: <Protected element={<Home />} /> },
+    { path: "/signup", element: <Protected element={<Signup />} /> },
+    { path: "/login", element: <Protected element={<Login />} /> },
+    { path: "/forgetpassword", element: <Protected element={<ForgetPassword />} /> },
+    { path: "/about", element: <About /> },
+    { path: "/verifiedotp", element: <VerifiedOtp /> },
+
+    // User routes
+    { path: "/home", element: <Protected element={<Home />} allowedRole="user" /> },
+    { path: "/adviserAvailibilty", element: <Protected element={<AdviserAvailiblity />} allowedRole="user" /> },
+    { path: "/advisordetails", element: <Protected element={<AdvisorDetails />} allowedRole="user" /> },
+    { path: "/certificates", element: <Protected element={<DataSet />} allowedRole="user" /> },
+    { path: "/fypresult", element: <Protected element={<FYPResult />} allowedRole="user" /> },
+    { path: "/userdashboard", element: <Protected element={<UserDashboard />} allowedRole="user" /> },
+    { path: "/adviser_requests", element: <Protected element={<AdviserRequests />} allowedRole="user" /> },
+    { path: "/open-ideas", element: <Protected element={<OPenProjectIdea />} allowedRole="user" /> },
+    { path: "/resource-file", element: <Protected element={<ResourceFile />} allowedRole="user" /> },
+
+    // Employee course routes
+    { path: "/courses", element: <Protected element={<AvailableCourses />} allowedRole="user" /> },
+    { path: "/course/:courseId", element: <Protected element={<CourseDetail />} allowedRole="user" /> },
+
+    // Admin routes
+    { path: "/employee-progress", element: <Protected element={<EmployeeProgressGraph />} allowedRole="admin" /> },
+    { path: "/adminDashboard", element: <Protected element={<AdminDashboard />} allowedRole="admin" /> },
+    { path: "/request-users", element: <Protected element={<RequestUsers />} allowedRole="admin" /> },
+    { path: "/noticeboard", element: <Protected element={<Announcements />} allowedRole="admin" /> },
+    { path: "/adviserslist", element: <Protected element={<AdviserSlots />} allowedRole="admin" /> },
+    { path: "/result", element: <Protected element={<Result />} allowedRole="admin" /> },
+    { path: "/addTeacher", element: <Protected element={<AddTeacher />} allowedRole="admin" /> },
+    { path: "/projectIdea", element: <Protected element={<ProjectIdea />} allowedRole="admin" /> },
+    { path: "/resourceFile", element: <Protected element={<ResourceFiles />} allowedRole="admin" /> },
+    { path: "/admin/add-course", element: <Protected element={<AddCourse />} allowedRole="admin" /> },
+    { path: "/admin/view-courses", element: <Protected element={<ViewCourses />} allowedRole="admin" /> },
+
+    // Teacher routes
+    { path: "/teacherDashboard", element: <Protected element={<AdminDashboard allowedRole="user" />} /> },
+    { path: "/teacherslot", element: <Protected element={<TeacherSlots />} allowedRole="user" /> },
+    { path: "/slotRequests", element: <Protected element={<SlotRequests />} allowedRole="user" /> },
+    { path: "/submittedfyp", element: <Protected element={<TeacherFypApprovals />} allowedRole="user" /> },
+  ],
+  {
+    future: {
+      v7_startTransition: true,
+      v7_relativeSplatPath: true,
+    },
+  }
+);
 
 function App() {
   return (
     <div className="App">
       <RefreshHandler />
       <ToastContainer />
-      <Routes>
-        <Route path="/loginwrapper" element={<LoginSignupWrapper />} />
-        {/* Public Routes */}
-        <Route path="/" element={<Navigate to="/home" />} />
-        <Route path="/home" element={<ProtectedRoute element={<Home />} />} />
-        <Route
-          path="/signup"
-          element={<ProtectedRoute element={<Signup />} />}
-        />
-        <Route path="/login" element={<ProtectedRoute element={<Login />} />} />
-        <Route
-          path="/forgetpassword"
-          element={<ProtectedRoute element={<ForgetPassword />} />}
-        />
-        <Route path="/about" element={<About />} />
-        <Route path="/verifiedotp" element={<VerifiedOtp />} />
-        {/* User Routes */}
-        <Route
-          path="/home"
-          element={<ProtectedRoute element={<Home />} allowedRole="user" />}
-        />
-        <Route
-          path="/adviserAvailibilty"
-          element={
-            <ProtectedRoute
-              element={<AdviserAvailiblity />}
-              allowedRole="user"
-            />
-          }
-        />
-        <Route
-          path="/advisordetails"
-          element={
-            <ProtectedRoute element={<AdvisorDetails />} allowedRole="user" />
-          }
-        />
-        <Route
-          path="/certificates"
-          element={<ProtectedRoute element={<DataSet />} allowedRole="user" />}
-        />
-        <Route
-          path="/fypresult"
-          element={
-            <ProtectedRoute element={<FYPResult />} allowedRole="user" />
-          }
-        />
-        <Route
-          path="/userdashboard"
-          element={
-            <ProtectedRoute element={<UserDashboard />} allowedRole="user" />
-          }
-        />
-        <Route
-          path="/adviser_requests"
-          element={
-            <ProtectedRoute element={<AdviserRequests />} allowedRole="user" />
-          }
-        />
-        <Route
-          path="/open-ideas"
-          element={
-            <ProtectedRoute element={<OPenProjectIdea />} allowedRole="user" />
-          }
-        />
-        <Route
-          path="/resource-file"
-          element={
-            <ProtectedRoute element={<ResourceFile />} allowedRole="user" />
-          }
-        />
-
-        <Route
-          path="/employee-progress"
-          element={
-            <ProtectedRoute element={<EmployeeProgressGraph />} allowedRole="admin" />
-          }
-        />
-        {/* Admin Routes */}
-        <Route
-          path="/adminDashboard"
-          element={
-            <ProtectedRoute element={<AdminDashboard />} allowedRole="admin" />
-          }
-        />
-        <Route
-          path="/request-users"
-          element={
-            <ProtectedRoute element={<RequestUsers />} allowedRole="admin" />
-          }
-        />
-        <Route
-          path="/noticeboard"
-          element={
-            <ProtectedRoute element={<Announcements />} allowedRole="admin" />
-          }
-        />
-        <Route
-          path="/adviserslist"
-          element={
-            <ProtectedRoute element={<AdviserSlots />} allowedRole="admin" />
-          }
-        />
-        <Route
-          path="/result"
-          element={<ProtectedRoute element={<Result />} allowedRole="admin" />}
-        />
-        <Route
-          path="/addTeacher"
-          element={
-            <ProtectedRoute element={<AddTeacher />} allowedRole="admin" />
-          }
-        />
-        <Route
-          path="/projectIdea"
-          element={
-            <ProtectedRoute element={<ProjectIdea />} allowedRole="admin" />
-          }
-        />
-        {/* Teacher Routes */}
-        <Route
-          path="/teacherDashboard"
-          element={
-            <ProtectedRoute
-              element={<AdminDashboard allowedRole="user" />}
-            />
-          }
-        />
-        <Route
-          path="/teacherslot"
-          element={
-            <ProtectedRoute element={<TeacherSlots />} allowedRole="user" />
-          }
-        />
-        <Route
-          path="/slotRequests"
-          element={
-            <ProtectedRoute element={<SlotRequests />} allowedRole="user" />
-          }
-        />
-        =
-        <Route
-          path="/resourceFile"
-          element={
-            <ProtectedRoute element={<ResourceFiles />} allowedRole="admin" />
-          }
-        />
-        <Route
-          path="/submittedfyp"
-          element={
-            <ProtectedRoute
-              element={<TeacherFypApprovals />}
-              allowedRole="user"
-            />
-          }
-        />
-
-        <Route path="/admin/courses"
-          element={
-            <ProtectedRoute
-              element={<AdminCourses />}
-              allowedRole="admin"
-            />
-          } 
-        />
-
-        <Route path="/courses"
-          element={
-            <ProtectedRoute
-              element={<CourseList />}
-              allowedRole="user"
-            />
-          } 
-        />
-
-        <Route path="/course/:id"
-          element={
-            <ProtectedRoute
-              element={<CourseDetail />}
-              allowedRole="user"
-            />
-          } 
-        />
-
-        <Route path="/quiz/:id"
-          element={
-            <ProtectedRoute
-              element={<QuizPage />}
-              allowedRole="user"
-            />
-          } 
-        />
-
-        <Route path="/certificate/:id"
-          element={
-            <ProtectedRoute
-              element={<CertificatePage />}
-              allowedRole="user"
-            />
-          } 
-        />
-
-      </Routes>
+      <RouterProvider router={router} />
     </div>
   );
 }
 
 export default App;
-
-
-

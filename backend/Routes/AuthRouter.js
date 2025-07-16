@@ -7,16 +7,18 @@ const { addAnnouncements, fetchAnnouncements, updateAnnouncement, deleteAnnounce
 const { addResults, fetchresults, deleteresult, getGroupInfo, addGroup } = require('../Controllers/ResultController');
 const { addProjectIdea, fetchProjectIdea, deleteProjectIdea } = require('../Controllers/OpenIdeaController');
 const { fetchResourceFiles, deleteResourceFile, updateResourceFile, addResourceFile, downloadResourceFile } = require('../Controllers/ResourceFileController');
-const upload = require('../Middleware/multer');
 const { approveRejectFyp, getAllFypSubmissions, getStudentFyp, getFilteredFyps } = require('../Controllers/UploadFypController');
 const fypRoutes = require('./fyproutes/fypRoutes.js');
 const verifyToken = require('../Middleware/verifyToken.js');
 const { getEmployeeProgress } = require('../Controllers/progressController');
-const { createCourse, getCourses, updateCourse, deleteCourse } = require('../Controllers/CourseController');
-const { getMyCourses, enrollCourse, submitQuiz } = require('../Controllers/EnrollmentController');
-const { getQuiz, submitQuiz } = require('../Controllers/QuizController');
-const { getCertificate } = require('../Controllers/CertificateController');
-const multer = require('multer')();
+const upload = require('../Middleware/multer'); // multer configured with memoryStorage for direct Cloudinary upload
+const {
+  addCourse,
+  getCourses,
+  enrollCourse,
+  submitQuiz,
+  getMyCourses
+} = require('../Controllers/CourseController');
 
 // 🔓 Public Routes
 router.post("/login", loginValidation, login);
@@ -69,48 +71,22 @@ router.put("/updateResourceFile/:id", verifyToken, upload.single("file"), update
 router.delete("/deleteResourceFile/:id", verifyToken, deleteResourceFile);
 
 // FYP Routes
-router.use('/fyp', verifyToken, fypRoutes); // protect all nested /fyp routes
-
+router.use('/fyp', verifyToken, fypRoutes);
 router.get('/fyp/get-student-fyp/:studentIdOrReg', verifyToken, getStudentFyp);
 router.get('/fyp/get-all', verifyToken, getAllFypSubmissions);
 router.get('/fyp/filter', verifyToken, getFilteredFyps);
 router.put("/approve-reject", verifyToken, approveRejectFyp);
 
-//Employee Progress Route
+// Employee Progress
 router.get('/employee/:userId', getEmployeeProgress);
 
-// Course Routes
-// router.post('/createCourse', verifyToken, createCourse);
-// router.get('/getAllCourses', verifyToken, getAllCourses);
-// router.put('/updateCourse/:id', verifyToken, updateCourse);
-// router.delete('/deleteCourse/:id', verifyToken, deleteCourse);
 
-router.get('/getCourses', verifyToken, getCourses);
-router.post('/createCourse', verifyToken, multer.single('video'), createCourse);
-router.put('/updateCourse/:id', verifyToken, multer.single('video'), updateCourse);
-router.delete('/deleteCourse/:id', verifyToken, deleteCourse);
+router.post('/addCourse', verifyToken, upload.single('video'), addCourse);
+router.get('/courses', verifyToken, getCourses);
 
-// Enrollment Routes
-// router.post('/enroll', verifyToken, enroll);
-// router.put('/complete/:id', verifyToken, completeCourse);
-
-
-router.post('/enroll', verifyToken, enrollCourse);
-router.post('/quiz', verifyToken, submitQuiz);
-router.get('/mine', verifyToken, getMyCourses);
-
-
-// Quiz Routes
-router.get('/getQuiz/:courseId', verifyToken, getQuiz);
-router.post('/submit/:id', verifyToken, submitQuiz);
-
-
-router.get('/getCertificate/:courseId', verifyToken, getCertificate);
-
+// Employee routes
+router.post('/enroll/:courseId', verifyToken, enrollCourse);
+router.post('/submitQuiz/:courseId', verifyToken, submitQuiz);
+router.get('/myCourses', verifyToken, getMyCourses);
 
 module.exports = router;
-
-
-
-
-
