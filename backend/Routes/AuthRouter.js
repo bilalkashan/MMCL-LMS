@@ -11,7 +11,7 @@ const { approveRejectFyp, getAllFypSubmissions, getStudentFyp, getFilteredFyps }
 const fypRoutes = require('./fyproutes/fypRoutes.js');
 const verifyToken = require('../Middleware/verifyToken.js');
 const { getEmployeeProgress } = require('../Controllers/progressController');
-const upload = require('../Middleware/multer'); // multer configured with memoryStorage for direct Cloudinary upload
+const upload = require('../Middleware/multer'); 
 const {
   addCourse,
   getCourses,
@@ -80,13 +80,13 @@ router.put("/approve-reject", verifyToken, approveRejectFyp);
 // Employee Progress
 router.get('/employee/:userId', getEmployeeProgress);
 
-
+// Admin Course Routes
 router.post('/addCourse', verifyToken, upload.single('video'), addCourse);
 router.get('/courses', verifyToken, getCourses);
 
-// Employee routes
-router.post('/enroll/:courseId', verifyToken, enrollCourse);
+// Employee Course Routes
+router.post("/enroll/:courseId", verifyToken, enrollCourse);
+router.get("/myCourses", verifyToken, getMyCourses);
 router.post('/submitQuiz/:courseId', verifyToken, submitQuiz);
-router.get('/myCourses', verifyToken, getMyCourses);
 
 module.exports = router;

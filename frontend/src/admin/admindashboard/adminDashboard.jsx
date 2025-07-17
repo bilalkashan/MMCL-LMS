@@ -70,7 +70,6 @@ const AdminDashboard = () => {
     setProgress(formatted);
   }, []);
 
-
   const handleCardClick = (componentName) => {
     setActiveComponent(componentName);
     switch (componentName) {
@@ -114,7 +113,6 @@ const AdminDashboard = () => {
         <div className={styles.profileHeaderContainer}>
           <ProfileHeader />
         </div>
-
 
         {activeComponent === "dashboard" && (
           <>

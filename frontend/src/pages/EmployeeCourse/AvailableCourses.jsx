@@ -8,7 +8,7 @@ const AvailableCourses = () => {
   const [message, setMessage] = useState(null);
 
   useEffect(() => {
-    api.get('/course/courses').then(res => {
+    api.get('/courses').then(res => {
       if(res.data.success) setCourses(res.data.courses);
       setLoading(false);
     }).catch(() => setLoading(false));
@@ -17,9 +17,13 @@ const AvailableCourses = () => {
   const handleEnroll = async (courseId) => {
     setMessage(null);
     try {
-      const res = await api.post(`/course/enroll/${courseId}`);
-      if(res.data.success) setMessage('Enrolled successfully!');
-      else setMessage(res.data.message || 'Failed to enroll');
+      const res = await api.post(`/enroll/${courseId}`);
+      if(res.data.success){
+        setMessage('Enrolled successfully!');
+      } 
+      else{
+        setMessage(res.data.message || 'Failed to enroll');
+      } 
     } catch {
       setMessage('Server error');
     }

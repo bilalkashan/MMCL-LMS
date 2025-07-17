@@ -62,11 +62,11 @@ const Sidebar = () => {
             <Link to="/noticeboard" className={styles.menuItem}>
               Notice Board
             </Link>
-            <Link to="/admin/courses" className={styles.menuItem}>
-              Manage Courses
+            <Link to="/admin/add-course" className={styles.menuItem}>
+              Add Courses
             </Link>
-            <Link to="/projectIdea" className={styles.menuItem}>
-              Progress
+            <Link to="/admin/view-courses" className={styles.menuItem}>
+              Uploaded Course
             </Link>
             {/* <Link to="/dataset" className={styles.menuItem}>
               Certificates
@@ -84,15 +84,19 @@ const Sidebar = () => {
             <Link to="/userDashboard" className={styles.menuItem}>
               Dashboard
             </Link>
-            <Link to="/adviserslist" className={styles.menuItem}>
-              Courses
-            </Link>
             <Link to="/noticeboard" className={styles.menuItem}>
-              Enrolled Courses
+              Noticeboard
+            </Link>
+            <Link to="/courses" className={styles.menuItem}>
+              Available Courses
+            </Link>
+            <Link to="/myCourses" className={styles.menuItem}>
+              My Courses
             </Link>
             <Link to="/certificates" className={styles.menuItem}>
               Certificates
             </Link>
+            
             {/* <Link to="/projectIdea" className={styles.menuItem}>
               Open Idea
             </Link>

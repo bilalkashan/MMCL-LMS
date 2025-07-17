@@ -45,24 +45,24 @@ const AdviserSlots = () => {
                     handleError("Both registration numbers are required.");
                     return;
                 }
-    
+
                 if (reg1 === reg2) {
                     handleError("Registration numbers must be different.");
                     return;
                 }
             }
-    
+
             const response = await axios.put(`http://localhost:8080/auth/update-slot/${adviserId}/${slotIndex}`, {
                 status: newStatus,
                 reg1,
                 reg2,
             });
-    
+
             if (!response.data.success) {
                 handleError(response.data.message);
                 return;
             }
-    
+
             fetchAdvisers();
             setConfirmation(null);
         } catch (error) {

@@ -14,14 +14,14 @@ const CourseDetail = () => {
   useEffect(() => {
     const fetchCourse = async () => {
       try {
-        const res = await api.get('/course/myCourses');
-        const data = res.data.courses.find(c => c._id === courseId);
-        if (data) {
-          setCourse(data);
-          setAnswers(new Array(data.quiz.length).fill(null));
+        const res = await api.get('/myCourses');
+        const found = res.data.courses.find(c => c._id === courseId);
+        if (found) {
+          setCourse(found);
+          setAnswers(new Array(found.quiz.length).fill(null));
         }
       } catch (err) {
-        console.error(err);
+        console.error('Error fetching course:', err);
       } finally {
         setLoading(false);
       }
@@ -37,7 +37,7 @@ const CourseDetail = () => {
 
   const handleSubmitQuiz = async () => {
     try {
-      const res = await api.post(`/course/submitQuiz/${courseId}`, { answers });
+      const res = await api.post(`/submitQuiz/${courseId}`, { answers });
       setResult(res.data);
       setSubmitted(true);
     } catch (err) {
@@ -66,7 +66,7 @@ const CourseDetail = () => {
           <h3>Quiz Result</h3>
           <p><strong>Score:</strong> {result?.score} / {course.quiz.length}</p>
           <p className={result?.success ? styles.pass : styles.fail}>
-            {result?.success ? 'You Passed!' : 'You Failed. Try Again.'}
+            {result?.success ? '🎉 You Passed!' : '❌ You Failed. Try Again.'}
           </p>
           {result?.certificateUrl && (
             <a href={result.certificateUrl} target="_blank" rel="noreferrer">
