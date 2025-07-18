@@ -20,10 +20,11 @@ function Signup({ toggle }) {
     setShowRetypePassword((prev) => !prev);
   };
 
-
   const [signupInfo, setSignupInfo] = useState({
     name: "",
     email: "",
+    department: "",
+    designation: "",
     password: "",
     retypePassword: "",
     role: "user",
@@ -38,10 +39,10 @@ function Signup({ toggle }) {
 
   const handleSignup = async (e) => {
     e.preventDefault();
-    const { name, email, password, retypePassword, role } = signupInfo;
+    const { name, email, department, designation, password, retypePassword, role } = signupInfo;
 
     // === Client-side Validations ===
-    if (!name || !email || !password || !retypePassword) {
+    if (!name || !email || !department || !designation || !password || !retypePassword) {
       return handleError("All fields are required");
     }
 
@@ -64,6 +65,8 @@ function Signup({ toggle }) {
         {
           name,
           email,
+          department,
+          designation,
           password,
           role,
         },
@@ -136,6 +139,25 @@ function Signup({ toggle }) {
                   onChange={handleChange}
                   className={styles.formInput}
                   placeholder="Enter your email..."
+                />
+              </div>
+              <div className={styles.formGroup}>
+                <input
+                  name="department"
+                  value={signupInfo.department}
+                  onChange={handleChange}
+                  className={styles.formInput}
+                  autoFocus
+                  placeholder="Department Name"
+                />
+
+                <input
+                  name="designation"
+                  value={signupInfo.designation}
+                  onChange={handleChange}
+                  className={styles.formInput}
+                  autoFocus
+                  placeholder="Designation"
                 />
               </div>
 

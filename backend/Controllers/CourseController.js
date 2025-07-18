@@ -1,9 +1,9 @@
 const Course = require("../Models/Course");
+// const User = require("../Models/User");
 const cloudinary = require("../utils/cloudinary");
 const fs = require("fs");
 const streamifier = require("streamifier");
 const mongoose = require('mongoose');
-
 
 const streamUpload = (buffer) => {
   return new Promise((resolve, reject) => {
@@ -52,7 +52,7 @@ const getCourses = async (req, res) => {
   try {
     const courses = await Course.find().populate(
       "enrolledEmployees.employeeId",
-      "name email"
+      "name email department designation"
     );
     res.status(200).json({ success: true, courses });
   } catch (err) {
@@ -96,68 +96,9 @@ const enrollCourse = async (req, res) => {
     return res.status(200).json({ success: true, message: 'Enrolled successfully' });
   } catch (error) {
     console.error('Enroll course error:', error);
-    res.status(500).json({ success: false, message: 'Server error' });
+    res.status(500).json({ success: false, message: 'Already enrolled in this course' });
   }
 };
-
-// Employee Submit quiz answers
-// const submitQuiz = async (req, res) => {
-//   try {
-//     const { answers } = req.body; // Array of selected indexes
-//     const courseId = req.params.courseId;
-//     const employeeId = req.user._id;
-
-//     const course = await Course.findById(courseId);
-//     if (!course)
-//       return res
-//         .status(404)
-//         .json({ success: false, message: "Course not found" });
-
-//     // Find enrolled employee
-//     const enrolled = course.enrolledEmployees.find(
-//       (e) => e.employeeId.toString() === employeeId.toString()
-//     );
-//     if (!enrolled)
-//       return res.status(400).json({ success: false, message: "Not enrolled" });
-
-//     if (!course.quiz.length)
-//       return res
-//         .status(400)
-//         .json({ success: false, message: "No quiz for this course" });
-//     if (!answers || answers.length !== course.quiz.length)
-//       return res
-//         .status(400)
-//         .json({ success: false, message: "Incomplete answers" });
-
-//     let score = 0;
-//     course.quiz.forEach((q, idx) => {
-//       if (q.correctAnswerIndex === answers[idx]) score++;
-//     });
-
-//     const passingScore = Math.ceil(course.quiz.length * 0.7); // 70% passing
-
-//     if (score >= passingScore) {
-//       enrolled.status = "completed";
-//       enrolled.quizScore = score;
-//       enrolled.completedAt = new Date();
-//       await course.save();
-
-//       // Generate e-certificate URL or file link - dummy for now
-//       const certificateUrl = `https://yourlms.com/certificates/${course._id}/${employeeId}`;
-
-//       return res
-//         .status(200)
-//         .json({ success: true, message: "Quiz passed", score, certificateUrl });
-//     } else {
-//       return res
-//         .status(200)
-//         .json({ success: false, message: "Quiz failed", score });
-//     }
-//   } catch (err) {
-//     console.error("Submit Quiz Error:", err);
-//     res.status(500).json({ success: false, message: "Server error" });
-//   }
-// };
 
 const submitQuiz = async (req, res) => {
   try {
@@ -213,60 +154,18 @@ const submitQuiz = async (req, res) => {
   }
 };
 
-// Employee enrolled courses
-// const getMyCourses = async (req, res) => {
-//   try {
-//     if (!req.user || !req.user._id) {
-//       return res.status(401).json({ success: false, message: 'Unauthorized' });
-//     }
-
-//     const employeeId = mongoose.Types.ObjectId(req.user._id);
-
-//     // Find courses where enrolledEmployees contains this user
-//     const courses = await Course.find({
-//       "enrolledEmployees.employeeId": employeeId
-//     });
-
-//     // Map to include user-specific enrollment info
-//     const myCourses = courses.map(course => {
-//       const enrolledData = course.enrolledEmployees.find(
-//         e => e.employeeId.toString() === employeeId.toString()
-//       );
-
-//       return {
-//         _id: course._id,
-//         title: course.title,
-//         description: course.description,
-//         category: course.category,
-//         videoUrl: course.videoUrl,
-//         status: enrolledData?.status,
-//         quizScore: enrolledData?.quizScore,
-//         completedAt: enrolledData?.completedAt,
-//         quiz: course.quiz
-//       };
-//     });
-
-//     res.status(200).json({ success: true, courses: myCourses });
-//   } catch (error) {
-//     console.error("Error fetching enrolled courses:", error);
-//     res.status(500).json({ success: false, message: "Server error" });
-//   }
-// };
-
 const getMyCourses = async (req, res) => {
   try {
     if (!req.user || !req.user._id) {
       return res.status(401).json({ success: false, message: 'Unauthorized' });
     }
 
-    const employeeId = mongoose.Types.ObjectId(req.user._id);
+    const employeeId = new mongoose.Types.ObjectId(req.user._id); 
 
-    // Find courses where enrolledEmployees contains this user
     const courses = await Course.find({
       "enrolledEmployees.employeeId": employeeId
     });
 
-    // Map to include user-specific enrollment info
     const myCourses = courses.map(course => {
       const enrolledData = course.enrolledEmployees.find(
         e => e.employeeId.toString() === employeeId.toString()
@@ -292,42 +191,80 @@ const getMyCourses = async (req, res) => {
   }
 };
 
-const getTotalCourses = async (req, res) => {
+// const getTotalEnrolledCourses = async (req, res) => {
+//   try {
+//     const Course = await CourseModel.find({
+//       title: true,
+//     });
+//     res.status(200).json({ success: true, Course });
+//   } catch (error) {
+//     res.status(500).json({ message: "Server error", success: false });
+//   }
+// };
+
+// const getTotalCompletedCourses = async (req, res) => {
+//   try {
+//     const users = await UserModel.find({
+//       is_active: true,
+//       role: "user",
+//     });
+//     res.status(200).json({ success: true, users });
+//   } catch (error) {
+//     res.status(500).json({ message: "Server error", success: false });
+//   }
+// };
+
+// const getTotalInProgressCourses = async (req, res) => {
+//   try {
+//     const users = await UserModel.find({
+//       is_verified: true,
+//       role: "user",
+//     });
+//     res.status(200).json({ success: true, users });
+//   } catch (error) {
+//     res.status(500).json({ message: "Server error", success: false });
+//   }
+// };
+
+
+// Get total number of courses with at least one enrollment
+const getTotalEnrolledCourses = async (req, res) => {
   try {
-    const users = await UserModel.find({
-      is_active: true,
-      is_verified: true,
-      role: "user",
-    });
-    res.status(200).json({ success: true, users });
+    const enrolledCourses = await Course.find({ enrolledEmployees: { $exists: true, $not: { $size: 0 } } });
+    res.status(200).json({ success: true, total: enrolledCourses.length });
   } catch (error) {
+    console.error("Error in getTotalEnrolledCourses:", error);
     res.status(500).json({ message: "Server error", success: false });
   }
 };
 
-const getTotalEnrolledUsers = async (req, res) => {
-  try {
-    const users = await UserModel.find({
-      is_active: true,
-      role: "user",
-    });
-    res.status(200).json({ success: true, users });
-  } catch (error) {
-    res.status(500).json({ message: "Server error", success: false });
-  }
-};
+// Get total number of users who completed any course
+// const getTotalCompletedCourses = async (req, res) => {
+//   try {
+//     const users = await User.find({
+//       role: "user",
+//       "enrolledCourses.status": "completed"
+//     });
+//     res.status(200).json({ success: true, total: users.length });
+//   } catch (error) {
+//     console.error("Error in getTotalCompletedCourses:", error);
+//     res.status(500).json({ message: "Server error", success: false });
+//   }
+// };
 
-const getTotalVerifiedUsers = async (req, res) => {
-  try {
-    const users = await UserModel.find({
-      is_verified: true,
-      role: "user",
-    });
-    res.status(200).json({ success: true, users });
-  } catch (error) {
-    res.status(500).json({ message: "Server error", success: false });
-  }
-};
+// // Get total number of users who are still in progress
+// const getTotalInProgressCourses = async (req, res) => {
+//   try {
+//     const users = await User.find({
+//       role: "user",
+//       "enrolledCourses.status": "in-progress"
+//     });
+//     res.status(200).json({ success: true, total: users.length });
+//   } catch (error) {
+//     console.error("Error in getTotalInProgressCourses:", error);
+//     res.status(500).json({ message: "Server error", success: false });
+//   }
+// };
 
 
 module.exports = {
@@ -336,4 +273,7 @@ module.exports = {
   enrollCourse,
   submitQuiz,
   getMyCourses,
+  getTotalEnrolledCourses,
+  // getTotalCompletedCourses,
+  // getTotalInProgressCourses
 };

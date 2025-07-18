@@ -349,6 +349,7 @@ h2 {
 .employee p {
   margin: 0.3rem 0;
   font-weight: 500;
+  text-align: center;
 }
 
 /* Responsive Adjustments */
@@ -369,4 +370,100 @@ h2 {
     font-size: 0.9rem;
     padding: 0.8rem 1rem;
   }
+}
+
+.enrollmentDetails {
+  margin: 1rem 2.5rem;
+  /* width: 100%; */
+  text-align: center;
+}
+
+.tableHeading {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  color: #333;
+  text-align: center;
+  /* padding-left: 4px; */
+}
+
+.table { 
+  border-collapse: separate;
+  border-spacing: 0;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  align-items:center ;
+  text-align: center;
+  width: 100%;  
+}
+
+.table th {
+  /* background-color: #f0f4f8; */
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #e0e0e0;
+  background: linear-gradient(145deg, #1f2937, #111827);
+  color: #f0f7ff;
+  padding: 20px;
+  text-align: center;
+  font-size: 16px;
+}
+
+.table tr {
+  transition: background-color 0.3s ease;
+}
+
+.table tr:hover {
+  background-color: #f9fafc;
+}
+
+.table td {
+  border-bottom: 1px solid #eee;
+  padding: 20px;
+  text-align: left;
+  font-size: 15px;
+  color: #333;
+}
+
+.deleteBtn {
+  background-color: #dc3545;
+  color: #fff;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;
+}
+
+.deleteBtn:hover {
+  background-color: #c82333;
+}
+
+a {
+  color: #0077ff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.fab {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  background-color: #0077ff;
+  color: white;
+  font-size: 24px;
+  border: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.3);
 }

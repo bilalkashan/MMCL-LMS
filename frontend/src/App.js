@@ -19,7 +19,7 @@ import RequestUsers from "./admin/requestUsers/requestUsers";
 import Announcements from "./admin/Announcements/Announcements";
 // import AdviserSlots from "./admin/adviser/adviserSlots";
 import AddTeacher from "./admin/addTeacher/AddTeacher";
-import ProjectIdea from "./admin/projectidea/projectIdea";
+// import ProjectIdea from "./admin/projectidea/projectIdea";
 import ResourceFiles from "./admin/ResourceFile/ResouceFiles";
 import AddCourse from "./admin/Course/AddCourse";
 import ViewCourses from "./admin/Course/ViewCourses";
@@ -40,6 +40,7 @@ import UserDashboard from "./pages/userdashboard/userdashboard";
 import AvailableCourses from "./pages/EmployeeCourse/AvailableCourses";
 import CourseDetail from "./pages/EmployeeCourse/CourseDetail";
 import EmployeeProgressGraph from "./Component/EmployeeProgressGraph/EmployeeProgressGraph";
+import MyCourses from "./pages/EmployeeCourse/MyCourses";
 
 function App() {
   return (
@@ -49,7 +50,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Navigate to="/home" />} />
         <Route path="/login" element={<ProtectedRoute element={<Login />} />} />
-        <Route path="/signup" element={<ProtectedRoute element={<Signup />}/>} />
+        <Route path="/signup" element={<ProtectedRoute element={<Signup />} />} />
         <Route
           path="/userdashboard"
           element={
@@ -77,23 +78,38 @@ function App() {
         />
         <Route
           path="/admin/add-course"
-          element= {<ProtectedRoute element={<AddCourse />} allowedRole="admin" />}
+          element={<ProtectedRoute element={<AddCourse />} allowedRole="admin" />}
         />
         <Route
           path="/admin/view-courses"
           element={<ProtectedRoute element={<ViewCourses />} allowedRole="admin" />}
         />
-        <Route 
-          path = "/courses" element={<ProtectedRoute element={<AvailableCourses />} allowedRole="user" />}
-        />
         <Route
-          path="/myCourses" element={<ProtectedRoute element={<CourseDetail />} allowedRole="user" />} 
+          path="/courses" element={<ProtectedRoute element={<AvailableCourses />} allowedRole="user" />}
         />
+        {/* <Route
+          path="/myCourses" element={<ProtectedRoute element={<CourseDetail />} allowedRole="user" />} 
+        /> */}
+
+        <Route
+          path="/myCourses/:courseId"
+          element={
+            <ProtectedRoute element={<CourseDetail />}
+              allowedRole="user" />}
+        />
+
+        <Route 
+        path="/myCourses" 
+        element={<ProtectedRoute element={<MyCourses />} 
+        allowedRole="user" />} 
+        />
+
+
         <Route
           path="/adviserAvailibilty"
           element={
             <ProtectedRoute element={<AdviserAvailiblity />} allowedRole="user" />
-          }/>
+          } />
 
         <Route
           path="/advisordetails"
@@ -108,7 +124,7 @@ function App() {
         <Route
           path="/fypresult"
           element={<ProtectedRoute element={<FYPResult />} allowedRole="user" />}
-          />
+        />
         <Route
           path="/adviser_requests"
           element={
@@ -119,7 +135,7 @@ function App() {
           path="/open-ideas"
           element={
             <ProtectedRoute element={<OPenProjectIdea />} allowedRole="user" />
-          } 
+          }
         />
         <Route
           path="/resource-file"
@@ -147,8 +163,8 @@ function App() {
           element={<ProtectedRoute element={<ForgetPassword />} />}
         />
         <Route
-        path="/resetpassword"
-        element={<ProtectedRoute element={<ForgetPassword />} />}
+          path="/resetpassword"
+          element={<ProtectedRoute element={<ForgetPassword />} />}
         />
         <Route
           path="/about"
@@ -192,10 +208,10 @@ function App() {
           path="/addTeacher"
           element={<ProtectedRoute element={<AddTeacher />} allowedRole="admin" />}
         />
-        <Route
+        {/* <Route
           path="/projectIdea"
           element={<ProtectedRoute element={<ProjectIdea />} allowedRole="admin" />}
-        />
+        /> */}
         <Route
           path="/resourceFile"
           element={<ProtectedRoute element={<ResourceFiles />} allowedRole="admin" />}

@@ -1,7 +1,9 @@
 .notice-board {
   margin: 0;
-  width: 10vw;
-  background-color: #003366;
+  /* width: 10vw; */
+  width: 80%;
+  /* background-color: #003366; */
+  background: linear-gradient(145deg, #1f2937, #111827);
   padding: 20px;
   border-radius: 12px;
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
@@ -40,21 +42,23 @@
   color: #333;
 }
 
-.notice-item p {
+.noticeDesciption {
   font-size: 16px;
   color: #555;
 }
 
 @media (min-width: 1200px) {
   .notice-board {
-    width: 100%;
+    width: 55%;
+    margin: 2rem;
+    
   }
 
   .announcementTitle {
     font-size: 20px;
   }
 
-  .notice-item p {
+  .noticeDesciption {
     font-size: 16px;
   }
 }
@@ -69,7 +73,7 @@
     font-size: 16px;
   }
 
-  .notice-item p {
+  .noticeDesciption {
     font-size: 12px;
   }
 }
@@ -89,7 +93,7 @@
     font-size: 14px;
   }
 
-  .notice-item p {
+  .noticeDesciption {
     font-size: 10px;
   }
 }
@@ -107,7 +111,7 @@
     font-size: 16px;
   }
 
-  .notice-item p {
+  .noticeDesciption {
     font-size: 12px;
   }
 }

@@ -134,7 +134,8 @@ function Login({ toggle }) {
                   onClick={togglePasswordVisibility}
                   style={{
                     position: "absolute",
-                    right: "15px",
+                    right: 0,
+                    paddingLeft:"5px",
                     top: "50%",
                     transform: "translateY(-50%)",
                     background: "none",

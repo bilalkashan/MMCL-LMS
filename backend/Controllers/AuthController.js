@@ -2,65 +2,40 @@ const UserModel = require("../Models/user");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const StudentDetail = require("../Models/studentDetail");
-const TeacherDetail = require("../Models/teacherDetail");
+// const TeacherDetail = require("../Models/teacherDetail");
 const sendEmail = require("../utils/sendEmail");
 
 const signup = async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, department, designation, password, role } = req.body;
 
-    // === Basic Validations ===
-    if (!name || !email || !password || !role) {
-      return res.status(400).json({
-        message: "All fields are required",
-        success: false,
-      });
+    if (!name || !email || !department || !designation || !password || !role) {
+      return res.status(400).json({ message: "All fields are required", success: false });
     }
 
-    // Email validation for MMCL 
-    // const emailRegex = /^[a-zA-Z0-9._%+-]+@mmcl\.com\.pk$/;
-    // if (!emailRegex.test(email)) {
-    //   return res.status(400).json({
-    //     message: "Email must be a valid mmcl.com.pk address",
-    //     success: false,
-    //   });
-    // }
-
-    // General email validation
-
-    const emailRegex = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      return res.status(400).json({
-        message: "Invalid email format",
-        success: false,
-      });
+      return res.status(400).json({ message: "Invalid email format", success: false });
     }
 
-    // === Check Existing User ===
     const existingUser = await UserModel.findOne({ email });
-
     if (existingUser && existingUser.is_verified === false) {
       if (existingUser.role === "user") {
         await StudentDetail.deleteOne({ userId: existingUser._id });
       }
       await existingUser.deleteOne();
     } else if (existingUser) {
-      return res.status(409).json({
-        message: "User already exists",
-        success: false,
-      });
+      return res.status(409).json({ message: "User already exists", success: false });
     }
 
-    // === Generate OTP ===
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-
-    // === Hash Password ===
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // === Save User ===
     const newUser = new UserModel({
       name,
       email,
+      department,
+      designation,
       password: hashedPassword,
       role,
       is_active: true,
@@ -70,7 +45,6 @@ const signup = async (req, res) => {
 
     await newUser.save();
 
-    // === Send Email ===
     const emailText = `
 Hello ${name},
 
@@ -81,24 +55,17 @@ Your One-Time Password (OTP) for email verification is:
 🔐 OTP: ${otp}
 
 Please enter this code in the app to verify your email address.
-    
+
 If you did not initiate this registration, please ignore this message.
 
 Regards,  
-Master Motors Team
-    `;
+Master Motors Team`;
 
     await sendEmail(email, "Master Motors - Email Verification OTP", emailText);
 
-    return res.status(201).json({
-      message: "Signup successful. OTP sent to email.",
-      success: true,
-    });
+    return res.status(201).json({ message: "Signup successful. OTP sent to email.", success: true });
   } catch (error) {
-    return res.status(500).json({
-      message: "Server error",
-      success: false,
-    });
+    return res.status(500).json({ message: "Server error", success: false });
   }
 };
 
@@ -108,34 +75,20 @@ const login = async (req, res) => {
 
     const user = await UserModel.findOne({ email });
     if (!user) {
-      return res
-        .status(409)
-        .json({
-          message: "Auth failed: email or password wrong",
-          success: false,
-        });
+      return res.status(409).json({ message: "Auth failed: email or password wrong", success: false });
     }
 
     const isPass = await bcrypt.compare(password, user.password);
     if (!isPass) {
-      return res
-        .status(403)
-        .json({
-          message: "Auth failed: email or password wrong",
-          success: false,
-        });
+      return res.status(403).json({ message: "Auth failed: email or password wrong", success: false });
     }
 
     if (!user.is_verified) {
-      return res
-        .status(403)
-        .json({ message: "Account not veriied", success: false });
+      return res.status(403).json({ message: "Account not verified", success: false });
     }
 
     if (user.admin_verified === "false" || user.admin_verified === "rejected") {
-      return res
-        .status(403)
-        .json({ message: "Admin not veriied", success: false });
+      return res.status(403).json({ message: "Admin not verified", success: false });
     }
 
     const jwtToken = jwt.sign(
@@ -150,12 +103,13 @@ const login = async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        department: user.department,
+        designation: user.designation,
         role: user.role,
       },
       jwtToken,
       success: true,
     });
-
   } catch (error) {
     res.status(500).json({ message: "Server error", success: false });
   }
@@ -167,14 +121,11 @@ const verify = async (req, res) => {
 
     const user = await UserModel.findOne({ email });
     if (!user) {
-      return res.status(409).json({
-        message: "Auth failed: email or password wrong",
-        success: false,
-      });
+      return res.status(409).json({ message: "Auth failed: email or password wrong", success: false });
     }
 
     if (user.otp != otp) {
-      return res.status(403).json({ message: "otp is wrong", success: false });
+      return res.status(403).json({ message: "OTP is wrong", success: false });
     }
 
     const jwtToken = jwt.sign(
@@ -183,17 +134,17 @@ const verify = async (req, res) => {
       { expiresIn: "24h" }
     );
 
-    if (user) {
-      user.is_verified = true;
-      await user.save();
-    }
+    user.is_verified = true;
+    await user.save();
 
     res.status(200).json({
-      message: "Otp has been verified",
+      message: "OTP has been verified",
       name: user.name,
       email: user.email,
+      department: user.department,
+      designation: user.designation,
       role: user.role,
-      jwtToken: jwtToken,
+      jwtToken,
       success: true,
     });
   } catch (error) {
@@ -396,3 +347,5 @@ module.exports = {
   getTotalActiveUsers,
   getTotalVerifiedUsers,
 };
+
+

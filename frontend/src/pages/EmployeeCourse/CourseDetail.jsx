@@ -15,7 +15,9 @@ const CourseDetail = () => {
     const fetchCourse = async () => {
       try {
         const res = await api.get('/myCourses');
-        const found = res.data.courses.find(c => c._id === courseId);
+        console.log("Fetched courses:", res.data);
+
+        const found = res.data.courses.find(c => c._id.toString() === courseId);
         if (found) {
           setCourse(found);
           setAnswers(new Array(found.quiz.length).fill(null));
@@ -46,7 +48,7 @@ const CourseDetail = () => {
   };
 
   if (loading) return <p className={styles.loading}>Loading...</p>;
-  if (!course) return <p className={styles.error}>Course not found or not enrolled</p>;
+  if (!course) return <p className={styles.error}>Course not found</p>;
 
   return (
     <div className={styles.container}>

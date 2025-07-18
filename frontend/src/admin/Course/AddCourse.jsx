@@ -103,7 +103,7 @@ const AddCourse = ({ onClose, onCourseAdded }) => {
           <h3>Quiz Questions</h3>
           {form.quiz.map((q, idx) => (
             <div key={idx} className={styles.quizQuestion}>
-              <input placeholder="Question" value={q.question} onChange={e => handleQuizChange(idx, 'question', e.target.value)} required />
+              <input placeholder="Add any question" value={q.question} onChange={e => handleQuizChange(idx, 'question', e.target.value)} required />
               {[0, 1, 2, 3].map(i => (
                 <input key={i} placeholder={`Option ${i + 1}`} value={q.options[i]} onChange={e => handleQuizChange(idx, `option${i}`, e.target.value)} required />
               ))}

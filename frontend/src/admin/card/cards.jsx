@@ -9,86 +9,96 @@ const Cards = ({
   role
 }) => {
   const [users, setUsers] = useState([]);
+  const [enrolledTotal, setEnrolledTotal] = useState(0);
+
+
 
   useEffect(() => {
-  if (role === 'admin') {
-    api.post('/getTotalUsers')
-      .then(res => {
-        if (res.data && Array.isArray(res.data.users)) {
-          setUsers(res.data.users);
-        } else {
+    if (role === 'admin') {
+      api.post('/getTotalUsers')
+        .then(res => {
+          if (res.data && Array.isArray(res.data.users)) {
+            setUsers(res.data.users);
+          } else {
+            setUsers([]);
+          }
+        })
+        .catch(err => {
+          console.error("Error fetching users:", err);
           setUsers([]);
-        }
-      })
-      .catch(err => {
-        console.error("Error fetching users:", err);
-        setUsers([]);
-      });
-  }
-}, [role]);
+        });
+    }
+  }, [role]);
 
-useEffect(() => {
-  if (role === 'admin') {
-    api.post('/getTotalActiveUsers')
-      .then(res => {
-        if (res.data && Array.isArray(res.data.users)) {
-          setUsers(res.data.users);
-        } else {
+  useEffect(() => {
+    if (role === 'admin') {
+      api.post('/getTotalActiveUsers')
+        .then(res => {
+          if (res.data && Array.isArray(res.data.users)) {
+            setUsers(res.data.users);
+          } else {
+            setUsers([]);
+          }
+        })
+        .catch(err => {
+          console.error("Error fetching users:", err);
           setUsers([]);
-        }
-      })
-      .catch(err => {
-        console.error("Error fetching users:", err);
-        setUsers([]);
-      });
-  }
-}, [role]);
+        });
+    }
+  }, [role]);
 
-useEffect(() => {
-  if (role === 'admin') {
-    api.post('/getTotalVerifiedUsers')
-      .then(res => {
-        if (res.data && Array.isArray(res.data.users)) {
-          setUsers(res.data.users);
-        } else {
-          setUsers([]);
-        }
-      })
-      .catch(err => {
-        console.error("Error fetching users:", err);
-        setUsers([]);
-      });
-  }
-}, [role]);
-
+  useEffect(() => {
+    if (role === 'user') {
+      api.post('/totalEnrolledCourses')
+        .then(res => {
+          if (res.data && typeof res.data.total === "number") {
+            setEnrolledTotal(res.data.total);
+          } else {
+            setEnrolledTotal(0);
+          }
+        })
+        .catch(err => {
+          console.error("Error fetching enrolled courses:", err);
+          setEnrolledTotal(0);
+        });
+    }
+  }, [role]);
 
   return (
     <div className={styles.cardsWrapper}>
       <div className={styles.statsCardsWrapper}>
+
         {role === 'user' && (
           <>
+            {/* <Card
+              value={Array.isArray(users) ? users.length : 0}
+              title="Total Enrolled Courses"
+              cardClass={styles.cardPrimaryContainer}
+              onClick={onCardClick}
+            /> */}
+
             <Card
-            value={Array.isArray(users) ? users.length : 0}
-              title="Total Courses"
-              description="More info"
+              value={enrolledTotal}
+              title="Total Enrolled Courses"
               cardClass={styles.cardPrimaryContainer}
               onClick={onCardClick}
             />
+
             <Card
+              value={enrolledTotal}
               title="Incomplete Courses"
-              description="More info"
               cardClass={styles.cardSuccessContainer}
               onClick={onCardClick1}
             />
             <Card
+              value={enrolledTotal}
               title="Completed Courses"
-              description="More info"
               cardClass={styles.cardWarningContainer}
               onClick={onCardClick2}
-            /> 
+            />
             <Card
+              value={enrolledTotal}
               title="In Progress Course"
-              description="More info"
               cardClass={styles.cardInfoContainer}
               onClick={onCardClick3}
             />
@@ -117,14 +127,14 @@ useEffect(() => {
               description="More info"
               cardClass={styles.cardWarningContainer}
               onClick={onCardClick2}
-            /> 
+            />
             <Card
               title="In Progress Course"
               description="More info"
               cardClass={styles.cardInfoContainer}
               onClick={onCardClick3}
             />
-            
+
           </>
         )}
       </div>

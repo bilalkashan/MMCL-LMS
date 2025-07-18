@@ -28,7 +28,7 @@ function NoticeBoard() {
       {announcements.map((announcement) => (
         <div className="notice-item" key={announcement._id}>
           <h4 className='announcementTitle'>{announcement.title}</h4>
-          <p>{announcement.description}</p>
+          <p className='noticeDesciption'>{announcement.description}</p>
           <p className="date">
             Posted on:{" "}
             {new Date(announcement.createdAt).toLocaleDateString("en-US", {

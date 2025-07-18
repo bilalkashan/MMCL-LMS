@@ -48,7 +48,7 @@ const RequestUsers = () => {
     <div className={styles.userRequestContainer}>
       <Sidebar />
       <div className={styles.container}>
-        <h2 className={styles.title}>Total Employees Registered</h2>
+        <h2 className={styles.title}>Total Employees Registered in LMS</h2>
         <p className={styles.totalUsers}>Total Users: {users.length}</p>
 
         {users.length === 0 ? (
@@ -60,6 +60,8 @@ const RequestUsers = () => {
                 <tr>
                   <th>Name</th>
                   <th>Email</th>
+                  <th>Department</th>
+                  <th>Designation</th>
                   <th>Status</th>
                   <th>Role</th>
                   {/* <th>Actions</th> */}
@@ -70,6 +72,8 @@ const RequestUsers = () => {
                   <tr key={user._id}>
                     <td>{user.name}</td>
                     <td>{user.email}</td>
+                    <td>{user.department}</td>
+                    <td>{user.designation}</td>
                     <td>{user.is_verified ? "Verified" : "Not Verified"}</td>
                     <td>{user.role}</td>
                     {/* <td>

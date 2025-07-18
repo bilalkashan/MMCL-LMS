@@ -17,7 +17,10 @@ const {
   getCourses,
   enrollCourse,
   submitQuiz,
-  getMyCourses
+  getMyCourses,
+  getTotalEnrolledCourses,
+  // getTotalCompletedCourses,
+  // getTotalInProgressCourses
 } = require('../Controllers/CourseController');
 
 // 🔓 Public Routes
@@ -84,9 +87,13 @@ router.get('/employee/:userId', getEmployeeProgress);
 router.post('/addCourse', verifyToken, upload.single('video'), addCourse);
 router.get('/courses', verifyToken, getCourses);
 
+
 // Employee Course Routes
 router.post("/enroll/:courseId", verifyToken, enrollCourse);
 router.get("/myCourses", verifyToken, getMyCourses);
 router.post('/submitQuiz/:courseId', verifyToken, submitQuiz);
+router.get("/totalEnrolledCourses", verifyToken, getTotalEnrolledCourses);
+// router.get("/totalCompletedCourses", verifyToken, getTotalCompletedCourses);
+// router.get("/totalInProgressCourses", verifyToken, getTotalInProgressCourses);
 
 module.exports = router;

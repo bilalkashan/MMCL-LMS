@@ -8,6 +8,12 @@ const UserSchema = new Schema({
   email: { 
     type: String, required: true, unique: true },
 
+  department: { 
+    type: String, required: true },
+  
+  designation: { 
+    type: String, required: true },
+
   password: { 
     type: String, required: true },
 

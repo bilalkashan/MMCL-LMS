@@ -7,6 +7,7 @@ import EmployeeProgressGraph from '../../Component/EmployeeProgressGraph/Employe
 import MonthlyProgressBarChart from '../../Component/MonthlyProgressChart/MonthlyProgressChart';
 import ProfileHeader from '../../Component/ProfileHeader/profileHeader';
 // import axios from 'axios';
+import NoticeBoard from '../noticeboard/noticeboard';
 
 const UserDashboard = () => {
   const [progress, setProgress] = useState({ completed: 0, in_progress: 0, incomplete: 0 });
@@ -150,7 +151,10 @@ const UserDashboard = () => {
             </div>
           </>
         )}
+
+
       </main>
+      
     </div>
   );
 };

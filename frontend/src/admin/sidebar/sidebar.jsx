@@ -62,9 +62,9 @@ const Sidebar = () => {
             <Link to="/noticeboard" className={styles.menuItem}>
               Notice Board
             </Link>
-            <Link to="/admin/add-course" className={styles.menuItem}>
+            {/* <Link to="/admin/add-course" className={styles.menuItem}>
               Add Courses
-            </Link>
+            </Link> */}
             <Link to="/admin/view-courses" className={styles.menuItem}>
               Uploaded Course
             </Link>
@@ -84,9 +84,9 @@ const Sidebar = () => {
             <Link to="/userDashboard" className={styles.menuItem}>
               Dashboard
             </Link>
-            <Link to="/noticeboard" className={styles.menuItem}>
+            {/* <Link to="/noticeboard" className={styles.menuItem}>
               Noticeboard
-            </Link>
+            </Link> */}
             <Link to="/courses" className={styles.menuItem}>
               Available Courses
             </Link>
